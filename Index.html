@@ -1,0 +1,593 @@
+bash
+cat > /mnt/user-data/outputs/index.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dar Sakina — Villa de vacances à Essaouira</title>
+<meta name="description" content="Dar Sakina, villa privée avec piscine à Essaouira, Maroc. 4 chambres, 8 personnes, cuisinier inclus. À 15 min de la plage.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+ --sand: #c9b08a;
+ --sand-light: #f5ede0;
+ --sand-dark: #8c6e45;
+ --stone: #4a3f32;
+ --teal: #2d7a6e;
+ --teal-light: #e1f0ee;
+ --cream: #faf6ef;
+ --text: #2a2218;
+ --text-muted: #7a6e5f;
+ --white: #ffffff;
+ --radius: 16px;
+ --radius-sm: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+nav {
+ position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+ display: flex; align-items: center; justify-content: space-between;
+ padding: 1rem 2rem;
+ background: rgba(250,246,239,0.92);
+ backdrop-filter: blur(12px);
+ border-bottom: 1px solid rgba(201,176,138,0.25);
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: #4a3f32; }
+.nav-logo span { color: #8c6e45; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 13px; color: #7a6e5f; text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.nav-links a:hover { color: #2a2218; }
+.nav-btn { background: #4a3f32; color: #faf6ef; border: none; padding: 9px 22px; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.nav-btn:hover { background: #8c6e45; }
+
+.hero { height: 100vh; min-height: 640px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.hero-bg-img { background-size: cover; background-position: center; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(42,34,24,0.35) 0%, rgba(42,34,24,0.55) 50%, rgba(42,34,24,0.75) 100%); }
+.hero-content { position: relative; z-index: 2; color: #fff; padding: 2rem; max-width: 700px; animation: fadeUp 1s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: #c9b08a; margin-bottom: 1.25rem; font-weight: 500; }
+.hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 30px; height: 1px; background: #c9b08a; opacity: 0.6; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 8vw, 88px); font-weight: 300; line-height: 1.0; margin-bottom: 0.5rem; }
+.hero h1 em { font-style: italic; color: #c9b08a; }
+.hero-sub { font-size: 16px; font-weight: 300; opacity: 0.85; margin: 1rem auto 2rem; line-height: 1.6; max-width: 480px; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-hero-primary { background: #fff; color: #4a3f32; border: none; padding: 14px 32px; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-hero-primary:hover { background: #f5ede0; }
+.btn-hero-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.45); padding: 14px 28px; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; }
+.hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 2; color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; animation: bounce 2s infinite; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+.strip-stats { display: flex; justify-content: center; flex-wrap: wrap; background: #4a3f32; }
+.stat-item { flex: 1; min-width: 140px; max-width: 200px; padding: 1.5rem 1rem; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: #c9b08a; }
+.stat-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+section { padding: 5rem 2rem; }
+.section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #8c6e45; font-weight: 500; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
+.section-tag::after { content: ''; flex: 0 0 40px; height: 1px; background: #c9b08a; }
+h2.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+h2.section-title em { font-style: italic; color: #8c6e45; }
+.section-centered { text-align: center; }
+.section-centered .section-tag { justify-content: center; }
+.section-centered .section-tag::before { content: ''; flex: 0 0 40px; height: 1px; background: #c9b08a; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+.about-text p { font-size: 16px; line-height: 1.85; color: #7a6e5f; margin-bottom: 1.25rem; font-weight: 300; }
+.about-img-stack { position: relative; height: 480px; }
+.about-img-main { position: absolute; inset: 0; border-radius: 16px; overflow: hidden; background-size: cover; background-position: center; }
+.about-img-accent { position: absolute; bottom: -20px; left: -20px; width: 55%; height: 48%; border-radius: 10px; background-size: cover; background-position: center; border: 4px solid #faf6ef; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+.quote-card { background: #f5ede0; border-left: 3px solid #c9b08a; padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin: 1.5rem 0; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #4a3f32; line-height: 1.5; }
+
+.amenities-section { background: #4a3f32; color: #fff; }
+.amenities-section .section-tag { color: #c9b08a; }
+.amenities-section .section-tag::after { background: #c9b08a; }
+.amenities-section h2.section-title { color: #fff; }
+.amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; margin-top: 2.5rem; max-width: 1100px; margin-left: auto; margin-right: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+.amenity-item { padding: 1.75rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s; }
+.amenity-item:hover { background: rgba(201,176,138,0.08); }
+.amenity-icon { font-size: 22px; color: #c9b08a; margin-bottom: 10px; }
+.amenity-name { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+.amenity-desc { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+.gallery-section { background: #f5ede0; }
+.gallery-mosaic { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 10px; max-width: 1100px; margin: 2rem auto 0; border-radius: 16px; overflow: hidden; }
+.gal-item { background-size: cover; background-position: center; cursor: pointer; position: relative; overflow: hidden; }
+.gal-item::after { content: ''; position: absolute; inset: 0; background: rgba(42,34,24,0); transition: background 0.3s; }
+.gal-item:hover::after { background: rgba(42,34,24,0.2); }
+.gal-item:first-child { grid-row: 1 / 3; }
+
+.rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 2rem auto 0; }
+.room-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(42,34,24,0.07); transition: transform 0.25s, box-shadow 0.25s; }
+.room-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(42,34,24,0.12); }
+.room-img { height: 180px; background-size: cover; background-position: center; position: relative; }
+.room-badge { position: absolute; top: 12px; left: 12px; background: #8c6e45; color: #fff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+.room-info { padding: 1.25rem; }
+.room-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+.room-features { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.room-feat { font-size: 11px; color: #7a6e5f; display: flex; align-items: center; gap: 4px; }
+.room-feat i { font-size: 13px; color: #8c6e45; }
+
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 900px; margin: 2rem auto 0; }
+.exp-card { background: #fff; border-radius: 16px; padding: 1.75rem; display: flex; gap: 1rem; align-items: flex-start; box-shadow: 0 1px 12px rgba(42,34,24,0.05); transition: box-shadow 0.2s; }
+.exp-card:hover { box-shadow: 0 4px 24px rgba(42,34,24,0.10); }
+.exp-icon { width: 44px; height: 44px; border-radius: 12px; background: #f5ede0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; color: #8c6e45; }
+.exp-title { font-weight: 500; font-size: 15px; margin-bottom: 5px; }
+.exp-text { font-size: 13px; color: #7a6e5f; line-height: 1.6; }
+
+.pricing-section { background: #4a3f32; color: #fff; }
+.pricing-section .section-tag { color: #c9b08a; }
+.pricing-section .section-tag::after { background: #c9b08a; }
+.pricing-section h2.section-title { color: #fff; }
+.pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 700px; margin: 2.5rem auto 0; }
+.price-card { background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); padding: 2rem; }
+.price-card.featured { background: rgba(201,176,138,0.12); border-color: #c9b08a; }
+.season-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c9b08a; margin-bottom: 1rem; display: block; }
+.price-main { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 400; color: #fff; line-height: 1; }
+.price-main sup { font-size: 22px; vertical-align: top; margin-top: 8px; }
+.price-per { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; margin-bottom: 1.25rem; }
+.price-includes { list-style: none; }
+.price-includes li { font-size: 13px; color: rgba(255,255,255,0.65); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: 8px; }
+.price-includes li i { color: #c9b08a; font-size: 14px; }
+.price-period { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 1rem; line-height: 1.5; }
+.pricing-note { text-align: center; margin-top: 2rem; font-size: 13px; color: rgba(255,255,255,0.4); }
+
+.booking-wrapper { max-width: 680px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 4px 40px rgba(42,34,24,0.1); overflow: hidden; margin-top: 2.5rem; }
+.booking-header { background: #4a3f32; padding: 1.75rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+.booking-header-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; font-weight: 400; }
+.avail-badge { background: #2d7a6e; color: #e1f5ee; font-size: 11px; padding: 5px 12px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+.avail-dot { width: 6px; height: 6px; background: #5cd9b8; border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.booking-body { padding: 2rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.f-group { display: flex; flex-direction: column; gap: 6px; }
+.f-group label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #7a6e5f; font-weight: 500; }
+.f-group input, .f-group select, .f-group textarea { padding: 11px 14px; border: 1.5px solid #e8e0d5; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #2a2218; background: #faf6ef; transition: border-color 0.2s; outline: none; }
+.f-group input:focus, .f-group select:focus, .f-group textarea:focus { border-color: #c9b08a; background: #fff; }
+.f-group textarea { height: 80px; resize: none; }
+.price-estimate { background: #f5ede0; border-radius: 10px; padding: 1rem 1.25rem; margin: 1rem 0; display: flex; justify-content: space-between; align-items: center; }
+.estimate-label { font-size: 13px; color: #7a6e5f; }
+.estimate-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: #8c6e45; }
+.btn-submit { width: 100%; background: #4a3f32; color: #fff; border: none; padding: 15px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-submit:hover { background: #8c6e45; }
+.form-note { font-size: 12px; color: #7a6e5f; text-align: center; margin-top: 0.75rem; }
+.confirm-msg { display: none; background: #e1f5ee; border: 1px solid #5cd9b8; border-radius: 10px; padding: 1.25rem; text-align: center; color: #0f6e56; margin-top: 1rem; }
+.confirm-msg i { font-size: 28px; margin-bottom: 8px; display: block; }
+
+.faq-list { max-width: 680px; margin: 2rem auto 0; }
+.faq-section { background: #f5ede0; }
+.faq-item { border-bottom: 1px solid rgba(201,176,138,0.4); padding: 1.25rem 0; cursor: pointer; }
+.faq-q { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 500; color: #4a3f32; }
+.faq-q i { transition: transform 0.3s; font-size: 18px; color: #8c6e45; }
+.faq-a { font-size: 14px; color: #7a6e5f; line-height: 1.7; margin-top: 0; max-height: 0; overflow: hidden; transition: all 0.3s; }
+.faq-item.open .faq-q i { transform: rotate(45deg); }
+.faq-item.open .faq-a { margin-top: 10px; max-height: 200px; }
+
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; max-width: 1000px; margin: 2rem auto 0; }
+.review-card { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 1px 12px rgba(42,34,24,0.05); }
+.review-stars { color: #c9b08a; font-size: 14px; margin-bottom: 10px; }
+.review-text { font-size: 14px; color: #7a6e5f; line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+.reviewer { display: flex; align-items: center; gap: 10px; }
+.reviewer-avatar { width: 36px; height: 36px; border-radius: 50%; background: #f5ede0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: #8c6e45; }
+.reviewer-name { font-size: 13px; font-weight: 500; }
+.reviewer-loc { font-size: 11px; color: #7a6e5f; }
+
+.location-section { background: #4a3f32; color: #fff; }
+.location-section .section-tag { color: #c9b08a; }
+.location-section .section-tag::after { background: #c9b08a; }
+.location-section h2.section-title { color: #fff; }
+.location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 2rem auto 0; align-items: center; }
+.location-text p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 1rem; }
+.nearby-list { list-style: none; margin-top: 1.5rem; }
+.nearby-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 14px; color: rgba(255,255,255,0.75); }
+.nearby-list li i { color: #c9b08a; font-size: 16px; }
+.map-box { height: 280px; background: #3a3020; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.2s; }
+.map-box:hover { border-color: #c9b08a; }
+.map-btn { background: #8c6e45; color: #fff; border: none; padding: 8px 18px; border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+.whatsapp-float { position: fixed; bottom: 24px; right: 24px; z-index: 998; width: 54px; height: 54px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.35); cursor: pointer; transition: transform 0.2s; border: none; text-decoration: none; }
+.whatsapp-float:hover { transform: scale(1.1); }
+.whatsapp-float i { font-size: 26px; color: white; }
+
+footer { background: #1a1510; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; text-align: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #c9b08a; margin-bottom: 0.5rem; font-weight: 300; }
+.footer-sub { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2rem; }
+.footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; cursor: pointer; }
+.footer-contact { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 2rem; }
+.footer-copy { font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; margin-top: 1rem; }
+
+@media (max-width: 768px) {
+ .nav-links { display: none; }
+ .about-grid { grid-template-columns: 1fr; }
+ .about-img-stack { height: 300px; margin-top: 2rem; }
+ .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+ .gal-item:first-child { grid-row: auto; }
+ .pricing-cards { grid-template-columns: 1fr; }
+ .form-grid { grid-template-columns: 1fr; }
+ .exp-grid { grid-template-columns: 1fr; }
+ .location-grid { grid-template-columns: 1fr; }
+ .strip-stats { gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+ <div class="nav-logo">Dar <span>Sakina</span></div>
+ <div class="nav-links">
+ <a href="#about">La villa</a>
+ <a href="#gallery">Photos</a>
+ <a href="#tarifs">Tarifs</a>
+ <a href="#location">Localisation</a>
+ </div>
+ <button class="nav-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Réserver ↗</button>
+</nav>
+
+<div class="hero" id="home">
+ <div class="hero-bg">
+ <div class="hero-bg-img" style="background-image:url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80')"></div>
+ <div class="hero-bg-img" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80')"></div>
+ <div class="hero-bg-img" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80')"></div>
+ </div>
+ <div class="hero-overlay"></div>
+ <div class="hero-content">
+ <div class="hero-eyebrow">Essaouira · Maroc · 15 min de la plage</div>
+ <h1>Dar<br><em>Sakina</em></h1>
+ <p class="hero-sub">Une villa d'exception avec piscine privée, cuisinier et jardins luxuriants. Votre refuge au bord de l'Atlantique.</p>
+ <div class="hero-btns">
+ <button class="btn-hero-primary" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Vérifier les disponibilités</button>
+ <button class="btn-hero-ghost" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Voir les photos</button>
+ </div>
+ </div>
+ <div class="hero-scroll"><i class="ti ti-chevron-down"></i></div>
+</div>
+
+<div class="strip-stats">
+ <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Personnes max</div></div>
+ <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Chambres</div></div>
+ <div class="stat-item"><div class="stat-num">15'</div><div class="stat-label">De la plage</div></div>
+ <div class="stat-item"><div class="stat-num">5★</div><div class="stat-label">Expérience</div></div>
+ <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Souvenirs</div></div>
+</div>
+
+<section id="about">
+ <div class="about-grid">
+ <div>
+ <div class="section-tag">La villa</div>
+ <h2 class="section-title">Un havre d'élégance<br><em>au cœur du Maroc</em></h2>
+ <div class="quote-card">"L'élégance du Maroc, le calme de l'Atlantique."</div>
+ <div class="about-text">
+ <p>Nichée dans un écrin de verdure à quelques minutes d'Essaouira, Dar Sakina — "la maison de la sérénité" — est une villa contemporaine de plain-pied qui marie architecture marocaine et sensibilité moderne.</p>
+ <p>Ses volumes purs, ses murs en pierre ancestrale et sa pergola en eucalyptus créent une atmosphère unique où chaque détail invite au bien-être. La piscine, la terrasse en zellige et les grands jardins font le reste.</p>
+ <p>Avec son cuisinier privé inclus, vous goûterez chaque jour aux saveurs authentiques de la cuisine marocaine — tajines, pastillas, couscous — sans lever le petit doigt.</p>
+ </div>
+ </div>
+ <div class="about-img-stack">
+ <div class="about-img-main" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80')"></div>
+ <div class="about-img-accent" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80')"></div>
+ </div>
+ </div>
+</section>
+
+<section class="amenities-section">
+ <div style="max-width:1100px;margin:0 auto;">
+ <div class="section-tag">Équipements</div>
+ <h2 class="section-title">Tout ce dont vous avez besoin,<br><em>et bien plus encore</em></h2>
+ <div class="amenities-grid">
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-swim"></i></div><div class="amenity-name">Piscine privée</div><div class="amenity-desc">Grande piscine extérieure, usage privatif</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-chef-hat"></i></div><div class="amenity-name">Cuisinier inclus</div><div class="amenity-desc">Chef marocain, petits-déjeuners et dîners</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-bed"></i></div><div class="amenity-name">4 grandes chambres</div><div class="amenity-desc">Chambres climatisées, literie haut de gamme</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-ball"></i></div><div class="amenity-name">Piste de pétanque</div><div class="amenity-desc">Piste officielle dans le jardin privatif</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-plant-2"></i></div><div class="amenity-name">Jardins & terrasse</div><div class="amenity-desc">Grands espaces verts, salon de jardin</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-wifi"></i></div><div class="amenity-name">Wi-Fi haut débit</div><div class="amenity-desc">Connexion fibre dans toute la villa</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-car"></i></div><div class="amenity-name">Parking privatif</div><div class="amenity-desc">Garage fermé et cour sécurisée</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-air-conditioning"></i></div><div class="amenity-name">Climatisation</div><div class="amenity-desc">Toutes pièces climatisées et chauffées</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-washing-machine"></i></div><div class="amenity-name">Service ménage</div><div class="amenity-desc">Ménage quotidien inclus, linge fourni</div></div>
+ <div class="amenity-item"><div class="amenity-icon"><i class="ti ti-armchair"></i></div><div class="amenity-name">Salon spacieux</div><div class="amenity-desc">Séjour ouvert avec accès à la terrasse</div></div>
+ </div>
+ </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+ <div style="max-width:1100px;margin:0 auto;">
+ <div class="section-tag">Galerie</div>
+ <h2 class="section-title">La villa <em>en images</em></h2>
+ <p style="color:#7a6e5f;font-size:14px;margin-bottom:0.5rem;">💡 Remplacez les photos ci-dessous par les vôtres en modifiant les URLs dans le code.</p>
+ <div class="gallery-mosaic">
+ <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80')"></div>
+ <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80')"></div>
+ <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600&q=80')"></div>
+ <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80')"></div>
+ <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80')"></div>
+ </div>
+ </div>
+</section>
+
+<section id="rooms">
+ <div style="max-width:1100px;margin:0 auto;">
+ <div class="section-tag">Chambres</div>
+ <h2 class="section-title">4 chambres,<br><em>4 univers</em></h2>
+ <div class="rooms-grid">
+ <div class="room-card">
+ <div class="room-img" style="background-image:url('https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80')">
+ <div class="room-badge">Suite principale</div>
+ </div>
+ <div class="room-info">
+ <div class="room-name">Suite Atlantique</div>
+ <div style="font-size:13px;color:#7a6e5f">Accès direct terrasse et piscine</div>
+ <div class="room-features">
+ <div class="room-feat"><i class="ti ti-bed-double"></i> Lit king-size</div>
+ <div class="room-feat"><i class="ti ti-bath"></i> Salle de bain privée</div>
+ <div class="room-feat"><i class="ti ti-air-conditioning"></i> Clim</div>
+ </div>
+ </div>
+ </div>
+ <div class="room-card">
+ <div class="room-img" style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80')">
+ <div class="room-badge">Chambre 2</div>
+ </div>
+ <div class="room-info">
+ <div class="room-name">Chambre Medina</div>
+ <div style="font-size:13px;color:#7a6e5f">Vue sur la pergola et les jardins</div>
+ <div class="room-features">
+ <div class="room-feat"><i class="ti ti-bed-double"></i> Lit double</div>
+ <div class="room-feat"><i class="ti ti-bath"></i> Salle de bain</div>
+ <div class="room-feat"><i class="ti ti-air-conditioning"></i> Clim</div>
+ </div>
+ </div>
+ </div>
+ <div class="room-card">
+ <div class="room-img" style="background-image:url('https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=600&q=80')">
+ <div class="room-badge">Chambre 3</div>
+ </div>
+ <div class="room-info">
+ <div class="room-name">Chambre Argan</div>
+ <div style="font-size:13px;color:#7a6e5f">Lumineuse et orientée jardin</div>
+ <div class="room-features">
+ <div class="room-feat"><i class="ti ti-bed-double"></i> Lit double</div>
+ <div class="room-feat"><i class="ti ti-bath"></i> Salle de bain</div>
+ <div class="room-feat"><i class="ti ti-air-conditioning"></i> Clim</div>
+ </div>
+ </div>
+ </div>
+ <div class="room-card">
+ <div class="room-img" style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80')">
+ <div class="room-badge">Chambre 4</div>
+ </div>
+ <div class="room-info">
+ <div class="room-name">Chambre Zellige</div>
+ <div style="font-size:13px;color:#7a6e5f">Idéale pour enfants ou amis</div>
+ <div class="room-features">
+ <div class="room-feat"><i class="ti ti-bed"></i> Lits simples</div>
+ <div class="room-feat"><i class="ti ti-bath"></i> Salle de bain</div>
+ <div class="room-feat"><i class="ti ti-air-conditioning"></i> Clim</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<section style="background:#faf6ef">
+ <div style="max-width:900px;margin:0 auto;text-align:center">
+ <div class="section-tag" style="justify-content:center">L'expérience</div>
+ <h2 class="section-title">Vivez Essaouira<br><em>autrement</em></h2>
+ <div class="exp-grid">
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-chef-hat"></i></div><div><div class="exp-title">Gastronomie marocaine</div><div class="exp-text">Tajines, couscous et douceurs locales préparés chaque jour par votre cuisinier privé.</div></div></div>
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-beach"></i></div><div><div class="exp-title">Plage à 15 minutes</div><div class="exp-text">Les célèbres plages d'Essaouira, paradis du kitesurf et des promenades.</div></div></div>
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-building-fortress"></i></div><div><div class="exp-title">Médina classée UNESCO</div><div class="exp-text">Rues bleues, remparts, souks et galeries d'art au cœur d'Essaouira.</div></div></div>
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-wind"></i></div><div><div class="exp-title">Kitesurf & windsurf</div><div class="exp-text">La "cité des alizés" est mondialement reconnue pour ses conditions de glisse.</div></div></div>
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-horse-toy"></i></div><div><div class="exp-title">Balades à cheval</div><div class="exp-text">Cavalcades sur la plage au coucher du soleil ou dans les forêts d'arganiers.</div></div></div>
+ <div class="exp-card"><div class="exp-icon"><i class="ti ti-sunset-2"></i></div><div><div class="exp-title">Couchers de soleil</div><div class="exp-text">Depuis la terrasse, admirez les teintes dorées du ciel atlantique chaque soir.</div></div></div>
+ </div>
+ </div>
+</section>
+
+<section class="pricing-section" id="tarifs">
+ <div style="max-width:700px;margin:0 auto;text-align:center">
+ <div class="section-tag" style="justify-content:center">Tarifs</div>
+ <h2 class="section-title">Nos formules<br><em>à la semaine</em></h2>
+ <div class="pricing-cards">
+ <div class="price-card">
+ <span class="season-tag">Basse saison</span>
+ <div class="price-main"><sup>€</sup>3 000</div>
+ <div class="price-per">par semaine · jusqu'à 8 personnes</div>
+ <ul class="price-includes">
+ <li><i class="ti ti-check"></i> Cuisinier privé inclus</li>
+ <li><i class="ti ti-check"></i> Ménage quotidien</li>
+ <li><i class="ti ti-check"></i> Piscine & jardin</li>
+ <li><i class="ti ti-check"></i> Linge de maison</li>
+ <li><i class="ti ti-check"></i> Wi-Fi & parking</li>
+ </ul>
+ <p class="price-period">Octobre → Mai (hors fêtes)</p>
+ </div>
+ <div class="price-card featured">
+ <span class="season-tag">Haute saison</span>
+ <div class="price-main"><sup>€</sup>3 500</div>
+ <div class="price-per">par semaine · jusqu'à 8 personnes</div>
+ <ul class="price-includes">
+ <li><i class="ti ti-check"></i> Cuisinier privé inclus</li>
+ <li><i class="ti ti-check"></i> Ménage quotidien</li>
+ <li><i class="ti ti-check"></i> Piscine & jardin</li>
+ <li><i class="ti ti-check"></i> Linge de maison</li>
+ <li><i class="ti ti-check"></i> Wi-Fi & parking</li>
+ </ul>
+ <p class="price-period">Juin → Septembre & périodes fériées</p>
+ </div>
+ </div>
+ <p class="pricing-note">Séjour minimum 7 nuits · Acompte 30% à la réservation · Solde à l'arrivée</p>
+ </div>
+</section>
+
+<section id="booking" style="background:#faf6ef">
+ <div style="max-width:700px;margin:0 auto;text-align:center">
+ <div class="section-tag" style="justify-content:center">Réservation</div>
+ <h2 class="section-title">Réservez votre<br><em>séjour de rêve</em></h2>
+ <div class="booking-wrapper">
+ <div class="booking-header">
+ <div class="booking-header-title">Demande de réservation</div>
+ <div class="avail-badge"><div class="avail-dot"></div> Disponible</div>
+ </div>
+ <div class="booking-body">
+ <div class="form-grid">
+ <div class="f-group"><label>Date d'arrivée</label><input type="date" id="b-arrive" onchange="calcPrice()"></div>
+ <div class="f-group"><label>Date de départ</label><input type="date" id="b-depart" onchange="calcPrice()"></div>
+ </div>
+ <div class="form-grid">
+ <div class="f-group">
+ <label>Nombre de personnes</label>
+ <select id="b-nb">
+ <option>2 personnes</option><option>3 personnes</option><option>4 personnes</option>
+ <option>5 personnes</option><option>6 personnes</option><option>7 personnes</option>
+ <option selected>8 personnes</option>
+ </select>
+ </div>
+ <div class="f-group"><label>Téléphone / WhatsApp</label><input type="tel" id="b-tel" placeholder="+33 6 xx xx xx xx"></div>
+ </div>
+ <div class="form-grid">
+ <div class="f-group"><label>Prénom & Nom</label><input type="text" id="b-nom" placeholder="Votre nom complet"></div>
+ <div class="f-group"><label>Email</label><input type="email" id="b-email" placeholder="votre@email.com"></div>
+ </div>
+ <div class="f-group" style="margin-bottom:1rem">
+ <label>Message (optionnel)</label>
+ <textarea id="b-msg" placeholder="Questions, demandes spéciales, occasion particulière…"></textarea>
+ </div>
+ <div class="price-estimate" id="estimate" style="display:none">
+ <div>
+ <div class="estimate-label" id="est-nights">Estimation</div>
+ <div style="font-size:11px;color:#7a6e5f;margin-top:2px" id="est-season"></div>
+ </div>
+ <div class="estimate-price" id="est-price">€ —</div>
+ </div>
+ <button class="btn-submit" onclick="submitForm()"><i class="ti ti-send"></i> Envoyer ma demande</button>
+ <p class="form-note">Réponse sous 24h · Aucun paiement immédiat · 100% sécurisé</p>
+ <div class="confirm-msg" id="confirm">
+ <i class="ti ti-circle-check"></i>
+ <strong>Demande envoyée avec succès !</strong><br>
+ Nous vous contactons sous 24h pour confirmer votre réservation.
+ </div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<section style="background:#fff">
+ <div style="max-width:1000px;margin:0 auto;text-align:center">
+ <div class="section-tag" style="justify-content:center">Avis</div>
+ <h2 class="section-title">Ce que disent<br><em>nos hôtes</em></h2>
+ <div class="reviews-grid">
+ <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Un endroit magique. Le cuisinier était extraordinaire, la piscine parfaite, et Essaouira à deux pas. On reviendra !"</p><div class="reviewer"><div class="reviewer-avatar">SL</div><div><div class="reviewer-name">Sophie L.</div><div class="reviewer-loc">Paris, France</div></div></div></div>
+ <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"La villa dépasse toutes les attentes. Architecture sublime, jardins immenses, et l'accueil est chaleureux. Une vraie pépite."</p><div class="reviewer"><div class="reviewer-avatar">MA</div><div><div class="reviewer-name">Marc A.</div><div class="reviewer-loc">Bruxelles, Belgique</div></div></div></div>
+ <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"10 jours de pur bonheur. La pétanque en fin de journée, les tajines au soleil, la piscine... on ne voulait plus repartir !"</p><div class="reviewer"><div class="reviewer-avatar">CF</div><div><div class="reviewer-name">Claire & Famille</div><div class="reviewer-loc">Lyon, France</div></div></div></div>
+ </div>
+ </div>
+</section>
+
+<section class="faq-section">
+ <div style="max-width:680px;margin:0 auto;text-align:center">
+ <div class="section-tag" style="justify-content:center">FAQ</div>
+ <h2 class="section-title">Questions<br><em>fréquentes</em></h2>
+ <div class="faq-list">
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Quel est le séjour minimum ? <i class="ti ti-plus"></i></div><div class="faq-a">La location se fait à la semaine (7 nuits minimum). Des exceptions peuvent être accordées en basse saison.</div></div>
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Le cuisinier est-il vraiment inclus ? <i class="ti ti-plus"></i></div><div class="faq-a">Oui, un cuisinier marocain est inclus. Il prépare le petit-déjeuner chaque matin et peut cuisiner des repas supplémentaires. Les courses sont à votre charge.</div></div>
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Comment se passe le paiement ? <i class="ti ti-plus"></i></div><div class="faq-a">Un acompte de 30% est demandé à la réservation. Le solde est réglé à votre arrivée. Virement bancaire et espèces acceptés.</div></div>
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Les animaux sont-ils acceptés ? <i class="ti ti-plus"></i></div><div class="faq-a">Les animaux domestiques sont acceptés sur demande préalable. Merci de nous le signaler lors de votre réservation.</div></div>
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Y a-t-il une voiture à disposition ? <i class="ti ti-plus"></i></div><div class="faq-a">La villa ne propose pas de voiture, mais nous recommandons des loueurs locaux. Un parking privatif est disponible sur place.</div></div>
+ <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Comment annuler ma réservation ? <i class="ti ti-plus"></i></div><div class="faq-a">Annulation +60 jours avant : remboursement 100%. Entre 30 et 60 jours : 50%. Moins de 30 jours : l'acompte est conservé.</div></div>
+ </div>
+ </div>
+</section>
+
+<section class="location-section" id="location">
+ <div style="max-width:1000px;margin:0 auto;">
+ <div class="section-tag">Localisation</div>
+ <h2 class="section-title">Essaouira,<br><em>la cité des alizés</em></h2>
+ <div class="location-grid">
+ <div class="location-text">
+ <p>Dar Sakina est nichée dans la campagne essaouiraine, à seulement 15 minutes en voiture du cœur de la ville et de ses célèbres plages atlantiques.</p>
+ <p>Classée au patrimoine mondial de l'UNESCO, Essaouira est une ville hors du commun : remparts, médina blanche et bleue, port authentique et galeries d'art.</p>
+ <ul class="nearby-list">
+ <li><i class="ti ti-beach"></i> Plage d'Essaouira — 15 min</li>
+ <li><i class="ti ti-building-fortress"></i> Médina UNESCO — 15 min</li>
+ <li><i class="ti ti-wind"></i> Spot kitesurf — 20 min</li>
+ <li><i class="ti ti-horse-toy"></i> Ranch équestre — 10 min</li>
+ <li><i class="ti ti-plane"></i> Aéroport Marrakech — 2h30</li>
+ <li><i class="ti ti-plane"></i> Aéroport Agadir — 2h</li>
+ </ul>
+ </div>
+ <div class="map-box" onclick="window.open('https://maps.google.com/?q=Essaouira,Maroc','_blank')">
+ <i class="ti ti-map-pin" style="font-size:36px;color:#c9b08a"></i>
+ <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:rgba(255,255,255,0.8)">Essaouira, Maroc</div>
+ <div style="font-size:13px;color:rgba(255,255,255,0.5)">15 min de la plage</div>
+ <button class="map-btn"><i class="ti ti-external-link"></i> Ouvrir Google Maps</button>
+ </div>
+ </div>
+ </div>
+</section>
+
+<a class="whatsapp-float" href="https://wa.me/212600000000?text=Bonjour%2C%20je%20souhaite%20des%20informations%20sur%20Dar%20Sakina" target="_blank" aria-label="Contacter sur WhatsApp">
+ <i class="ti ti-brand-whatsapp"></i>
+</a>
+
+<footer>
+ <div class="footer-logo">Dar Sakina</div>
+ <div class="footer-sub">Villa de vacances · Essaouira · Maroc</div>
+ <div class="footer-links">
+ <a href="#about">La villa</a>
+ <a href="#gallery">Photos</a>
+ <a href="#tarifs">Tarifs</a>
+ <a href="#booking">Réserver</a>
+ <a href="#location">Localisation</a>
+ </div>
+ <div class="footer-contact">
+ 📧 contact@darsaki na.ma &nbsp;·&nbsp; 📱 +212 6 00 00 00 00 &nbsp;·&nbsp; 📍 Route d'Essaouira, Maroc
+ </div>
+ <div class="footer-copy">© 2026 Dar Sakina · Tous droits réservés</div>
+</footer>
+
+<script>
+function calcPrice() {
+ const a = document.getElementById('b-arrive').value;
+ const d = document.getElementById('b-depart').value;
+ if (!a || !d) return;
+ const arrive = new Date(a), depart = new Date(d);
+ const nights = Math.round((depart - arrive) / 86400000);
+ if (nights <= 0) return;
+ const month = arrive.getMonth() + 1;
+ const highSeason = (month >= 6 && month <= 9);
+ const rate = highSeason ? 3500 : 3000;
+ const total = Math.round(rate * nights / 7);
+ document.getElementById('est-nights').textContent = nights + ' nuits · ' + (highSeason ? 'Haute' : 'Basse') + ' saison';
+ document.getElementById('est-season').textContent = '7 nuits = ' + rate.toLocaleString('fr-FR') + ' €';
+ document.getElementById('est-price').textContent = '≈ ' + total.toLocaleString('fr-FR') + ' €';
+ document.getElementById('estimate').style.display = 'flex';
+}
+function submitForm() {
+ const nom = document.getElementById('b-nom').value;
+ const email = document.getElementById('b-email').value;
+ const arrive = document.getElementById('b-arrive').value;
+ const depart = document.getElementById('b-depart').value;
+ if (!nom || !email || !arrive || !depart) {
+ alert('Merci de remplir votre nom, email et les dates de séjour.');
+ return;
+ }
+ document.getElementById('confirm').style.display = 'block';
+ document.querySelector('.btn-submit').disabled = true;
+ document.querySelector('.btn-submit').style.opacity = '0.5';
+}
+function toggleFaq(el) {
+ const isOpen = el.classList.contains('open');
+ document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+ if (!isOpen) el.classList.add('open');
+}
+</script>
+</body>
+</html>
+ENDOFFILE
+echo "Done: $(wc -c < /mnt/user-data/outputs/index.html) bytes"
